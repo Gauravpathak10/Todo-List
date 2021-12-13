@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-image: linear-gradient(120deg, #f6d365, #fda085);
+        color: white;
+        text-align: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight: 600;
+        font-style: italic;
+    }
+
+    form {
+        
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        position: relative;
+    }
+    .todo-button{
+        margin-left: -23px;
+        padding: 2px;
+        color: blue;
+        background-color: transparent;
+        border: none;
+    }
+    .todo{
+        border: 1px solid black;
+    }
+    .todo-item{
+        border: none;
+    }
+
+    form input,
+    form button {
+        padding: 5px;
+    }
+
+    ul {
+        list-style: none;
+        padding: unset;
+    }
+
+    li {
+        padding: 0.2rem 3.5rem;
+        background-color: white;
+        color: #000;
+        border: 1px solid black;
+        text-transform: capitalize;
+    }
+
+    .todo,
+    .todo-container {
+        display: flex;
+        margin: 5px;
+        justify-content: center;
+    }
+
+    .todo-container {
+        display: flex;
+    }
+
+    .trash-btn {
+        color: thistle;
+
+    }
+
+    .complete {
+        text-decoration: line-through;
+        text-decoration-color: black;
+        opacity: 0.5;
+        transition: 0.3s all;
+
+    }
+    .completed-btn,.trash-btn{
+        background-color: white;
+        border: none;
+        color: greenyellow;
+
+    }
+    button:hover{
+        background-color: rgb(33, 187, 192);
+    }
+    .trash-btn{
+        color: red;
+
+    }
+
+    i {
+        pointer-events: none;
+        padding: 4px;
+    }
+</style>
+
+<body>
+    <h1>Gaurav's Todolist</h1>
+    <form>
+        <input type="text" name="" id="" class="todo-input">
+        <button type="submit" class="todo-button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+    </form>
+    <div class="todo-container">
+        <ul class="todo-list">
+        </ul>
+    </div>
+    <script>
+        var todoInput = document.querySelector('.todo-input');
+        var todoButton = document.querySelector('.todo-button')
+        var todoList = document.querySelector('.todo-list')
+        todoButton.addEventListener('click', addtodo);
+        function addtodo(event) {
+            event.preventDefault();
+            var todoDiv = document.createElement('div');
+            todoDiv.classList.add('todo');
+            var newTodo = document.createElement('li');
+            newTodo.innerText = todoInput.value;
+            newTodo.classList.add('todo-item');
+            todoDiv.appendChild(newTodo) 
+            var completedbutton = document.createElement('button');
+            completedbutton.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i>'
+            completedbutton.classList.add('completed-btn');
+            todoDiv.appendChild(completedbutton)
+            var deletedbtn = document.createElement('button');
+            deletedbtn.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>'
+            deletedbtn.classList.add('trash-btn');
+            todoDiv.appendChild(deletedbtn)
+            todoList.appendChild(todoDiv);
+            todoInput.value = '';
+            deletedbtn.addEventListener('click', btn_delete_check);
+            completedbutton.addEventListener('click', btn_delete_check)
+
+            function btn_delete_check(a) {
+                var item = a.target;
+                if (item.classList[0] === 'trash-btn') {
+                    var todo = item.parentElement;
+                    todo.remove();
+                }
+                if (item.classList[0] === "completed-btn") {
+                    var todo = item.parentElement;
+                    todo.classList.toggle('complete')
+
+                }
+            }
+
+        }
+        
+    </script>
+</body>
+
+</html>
